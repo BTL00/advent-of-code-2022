@@ -1,6 +1,7 @@
 import numpy
 import re
 from timeit import timeit
+from gravitar64.Tag01 import solve, read_puzzle
 
 def do_stuff():
 
@@ -30,8 +31,8 @@ def do_stuff():
 
 def other():
     with open("adv-of-code-1-2022-input.txt", "r") as file:
-        x = 0
-        y = 0
+        x: int = 0
+        y: int = 0
         y_max = 0
         line = file.readline()
         while line:
@@ -46,8 +47,8 @@ def other():
         
         full_list = numpy.zeros((x + 1,y_max), dtype=int)
         line = " "
-        x_counter = 0
-        y_counter = 0
+        x_counter: int = 0
+        y_counter: int = 0
         while line:
             line = file.readline()
             if re.match(line, "\n"):
@@ -93,9 +94,15 @@ def last():
     third = numpy.max(full_list, initial=0, where=full_list<second)
     print(f'answer 2: {top + second + third}')
 
+def gravitar64():
+    top, sums = solve(read_puzzle('adv-of-code-1-2022-input.txt'))
+    print(f'answer 1: {top}')
+    print(f'answer 2: {sums}')
+
+
 
 
 if __name__ == "__main__":
-    for i in [do_stuff, other, last]:
-        elapsed = timeit(i)
+    for i in [do_stuff, other, last, gravitar64]:
+        elapsed = timeit(i, number=1)
         print(f"elapsed seconds {i.__name__}: {elapsed}")
